@@ -1,8 +1,5 @@
 import Head from "next/head";
-import { useEffect } from "react";
-
 const Layout = ({ children }) => {
-  useEffect(() => {}, []);
   return (
     <>
       <Head>
@@ -11,7 +8,7 @@ const Layout = ({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="../public/favicon.ico" />
       </Head>
-      <h1>holanda</h1>
+      <h1 className="text-3xl font-bold underline">holanda</h1>
       <main>{children}</main>
     </>
   );
