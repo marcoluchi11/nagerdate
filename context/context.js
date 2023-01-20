@@ -1,3 +1,5 @@
+import { createDateObject, dateDiff } from "@/helpers";
+
 const { createContext, useState, useEffect } = require("react");
 
 export const NagerContext = createContext();
@@ -5,6 +7,7 @@ export const NagerContext = createContext();
 const NagerProvider = ({ children }) => {
   const [dates, setDates] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [daysLeft, setDaysLeft] = useState(0);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(async function (position) {
       setLoading(true);
@@ -16,13 +19,22 @@ const NagerProvider = ({ children }) => {
       const url = `https://date.nager.at/api/v3/publicholidays/2023/${result.countryCode}`;
       const res2 = await fetch(url);
       const result2 = await res2.json();
+      const now = new Date();
+
+      const futureDates = result2.filter((res) => {
+        const { date } = res;
+        const dateFinal = createDateObject(date);
+        if (now < dateFinal) return res;
+      });
+      setDates(futureDates);
+      const feriado = createDateObject(futureDates[0].date);
+      setDaysLeft(dateDiff(now, feriado));
       setLoading(false);
-      setDates(result2);
       //COMO HACERLO MAS PERFORMANTE
     });
   }, []);
   return (
-    <NagerContext.Provider value={{ dates, loading }}>
+    <NagerContext.Provider value={{ dates, loading, setDaysLeft, daysLeft }}>
       {children}
     </NagerContext.Provider>
   );
