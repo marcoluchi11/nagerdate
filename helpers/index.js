@@ -6,3 +6,12 @@ export const createDateObject = (date) => {
 export const dateDiff = (first, second) => {
   return Math.round((second - first) / (1000 * 60 * 60 * 24));
 };
+
+export const changeDateFormat = (dateString) => {
+  const date = new Date(dateString);
+  console.log(date);
+  const day = date.getDate() + 1;
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  return day + "-" + month + "-" + year;
+};
