@@ -3,7 +3,7 @@
 @tailwind utilities;
 * {
   font-family: "Poppins", sans-serif;
-  background: url("./../images/bg-wave.svg") no-repeat center center fixed;
+  background: url("./../images/bg-wave.svg") center center fixed;
 }
 .sk-fading-circle {
   margin: auto auto;
