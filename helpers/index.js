@@ -4,7 +4,7 @@ export const createDateObject = (date) => {
   return dateFinal;
 };
 export const dateDiff = (first, second) => {
-  return Math.round((second - first) / (1000 * 60 * 60 * 24));
+  return Math.round((second - first) / (1000 * 60 * 60 * 24) + 1);
 };
 
 export const changeDateFormat = (dateString) => {
