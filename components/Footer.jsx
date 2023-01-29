@@ -7,7 +7,7 @@ import {
 } from "react-icons/ai";
 const Footer = () => {
   return (
-    <footer className="flex justify-around items-center text-white m-4  ">
+    <footer className="h-10 flex justify-around items-center text-white m-4  ">
       <div>
         <a
           href="https://cafecito.app/marcoluchi11"
