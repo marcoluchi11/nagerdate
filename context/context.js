@@ -15,7 +15,7 @@ const NagerProvider = ({ children }) => {
         setLoading(true);
         const lat = position.coords.latitude.toFixed(2);
         const long = position.coords.longitude.toFixed(2);
-        const countryUrl = `http://api.geonames.org/countryCodeJSON?lat=${lat}&lng=${long}&username=marcoluchi11`;
+        const countryUrl = `https://api.geonames.org/countryCodeJSON?lat=${lat}&lng=${long}&username=marcoluchi11`;
         const res = await fetch(countryUrl);
         const result = await res.json();
         const url = `https://date.nager.at/api/v3/publicholidays/2023/${result.countryCode}`;
@@ -31,7 +31,7 @@ const NagerProvider = ({ children }) => {
         setDaysLeft(dateDiff(now, feriado));
         setLoading(false);
       } catch (err) {
-        console.log("There was an error!", err);
+        console.log("There was an error! You have to allow your location", err);
         throw new Error(err);
       }
       //COMO HACERLO MAS PERFORMANTE
