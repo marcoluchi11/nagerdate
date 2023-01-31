@@ -9,9 +9,11 @@ const NagerProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [daysLeft, setDaysLeft] = useState(0);
   const [now, setNow] = useState(new Date());
+  const [error, setError] = useState(false);
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(async function (position) {
+    async function success(position) {
       try {
+        setError(false);
         setLoading(true);
         const lat = position.coords.latitude.toFixed(2);
         const long = position.coords.longitude.toFixed(2);
@@ -31,15 +33,24 @@ const NagerProvider = ({ children }) => {
         setDaysLeft(dateDiff(now, feriado));
         setLoading(false);
       } catch (err) {
-        console.log("There was an error! You have to allow your location", err);
+        console.log("There was an error!", err);
         throw new Error(err);
       }
-      //COMO HACERLO MAS PERFORMANTE
-    });
+    }
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+      setError(true);
+    }
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+    navigator.geolocation.getCurrentPosition(success, error, options);
   }, [now]);
   return (
     <NagerContext.Provider
-      value={{ dates, now, loading, setDaysLeft, daysLeft }}
+      value={{ dates, now, error, loading, setDaysLeft, daysLeft }}
     >
       {children}
     </NagerContext.Provider>
