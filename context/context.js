@@ -8,7 +8,6 @@ const NagerProvider = ({ children }) => {
   const [dates, setDates] = useState([]);
   const [loading, setLoading] = useState(false);
   const [daysLeft, setDaysLeft] = useState(0);
-  const [now, setNow] = useState(new Date());
   const [error, setError] = useState(false);
   useEffect(() => {
     async function success(position) {
@@ -32,8 +31,6 @@ const NagerProvider = ({ children }) => {
         });
         setDates(futureDates);
         const feriado = createDateObject(futureDates[0].date);
-        console.log(now);
-        console.log(feriado);
         setDaysLeft(dateDiff(now, feriado));
         setLoading(false);
       } catch (err) {
