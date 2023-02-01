@@ -3,7 +3,7 @@ import { changeDateFormat, createDateObject, dateDiff } from "@/helpers";
 import { useContext } from "react";
 import { AiOutlineArrowRight } from "react-icons/ai";
 const NextFeriados = () => {
-  const { dates, now } = useContext(NagerContext);
+  const { dates } = useContext(NagerContext);
   return (
     <ul className="flex flex-col items-center">
       {dates.map((date, index) => {
@@ -14,6 +14,8 @@ const NextFeriados = () => {
           return null;
         } else {
           const feriado = createDateObject(date.date);
+          let now = new Date();
+          now.setHours(0, 0, 0, 0);
           const howLong = dateDiff(now, feriado);
           return (
             <li

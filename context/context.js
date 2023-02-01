@@ -23,6 +23,8 @@ const NagerProvider = ({ children }) => {
         const url = `https://date.nager.at/api/v3/publicholidays/2023/${result.countryCode}`;
         const res2 = await fetch(url);
         const result2 = await res2.json();
+        let now = new Date();
+        now.setHours(0, 0, 0, 0);
         const futureDates = result2.filter((res) => {
           const { date } = res;
           const dateFinal = createDateObject(date);
@@ -30,6 +32,8 @@ const NagerProvider = ({ children }) => {
         });
         setDates(futureDates);
         const feriado = createDateObject(futureDates[0].date);
+        console.log(now);
+        console.log(feriado);
         setDaysLeft(dateDiff(now, feriado));
         setLoading(false);
       } catch (err) {
@@ -47,10 +51,10 @@ const NagerProvider = ({ children }) => {
       maximumAge: 0,
     };
     navigator.geolocation.getCurrentPosition(success, error, options);
-  }, [now]);
+  }, []);
   return (
     <NagerContext.Provider
-      value={{ dates, now, error, loading, setDaysLeft, daysLeft }}
+      value={{ dates, error, loading, setDaysLeft, daysLeft }}
     >
       {children}
     </NagerContext.Provider>
