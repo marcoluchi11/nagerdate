@@ -20,10 +20,15 @@ const NextFeriados = () => {
               key={crypto.randomUUID()}
               className="p-2 w-full justify-evenly flex md:flex-row items-center bg-gray-800 my-3 rounded-md font-light text-xs md:text-md "
             >
-              <p className="text-sm w-2/4 text-center">{date.localName}</p>
+              <p className="text-sm md:text-lg w-2/4 text-center">
+                {date.localName}
+              </p>
               <AiOutlineArrowRight className="text-lg" />
-              {changeDateFormat(date.date)}
-              <small className="font-thin">Faltan {howLong} dias</small>
+
+              <h3>{changeDateFormat(date.date)}</h3>
+              <small className="font-thin md:text-lg text-md">
+                Faltan {howLong} dias
+              </small>
             </li>
           );
         }
